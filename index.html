@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我家吃什么 - 家庭饮食助手</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#FF6B6B',
+              'primary-dark': '#E05658',
+              'primary-light': '#FFA07A',
+              surface: '#1C1C24',
+              'surface-soft': '#232330',
+              'surface-strong': '#13131A',
+              'accent-green': '#34D399',
+              'accent-yellow': '#FACC15',
+              'accent-blue': '#38BDF8',
+            },
+            fontFamily: {
+              outfit: ['Outfit', 'sans-serif'],
+            },
+            boxShadow: {
+              glow: '0 18px 55px rgba(255, 107, 107, 0.35)',
+            },
+          },
+        },
+      };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: 'Outfit', sans-serif;
+      }
+      .material-icons {
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      .soft-scroll::-webkit-scrollbar {
+        width: 6px;
+      }
+      .soft-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .soft-scroll::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 999px;
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen bg-[radial-gradient(circle_at_top,#FF6B6B22,transparent_55%),linear-gradient(140deg,#13131A,#191926,#13131A)] text-white p-6"
+  >
+    <div class="max-w-full mx-auto">
+      <header class="mb-8 flex items-center justify-between">
+        <div>
+          <p class="text-xs uppercase tracking-[0.5em] text-white/40">
+            Family Meal Planner
+          </p>
+          <h1 class="mt-2 text-3xl font-semibold">
+            <span
+              class="text-transparent bg-gradient-to-r from-primary-light via-primary to-rose-400 bg-clip-text"
+              >我家吃什么</span
+            >
+          </h1>
+        </div>
+        <div
+          class="hidden lg:flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur"
+        >
+          <span class="material-icons text-primary-light">local_dining</span>
+          <div>
+            <p class="text-xs uppercase tracking-[0.35em] text-white/50">
+              Design Preview
+            </p>
+            <p class="text-sm text-white/70">Tailwind UI Prototype</p>
+          </div>
+        </div>
+      </header>
+
+      <div class="app-container flex flex-wrap justify-center gap-12 pb-16">
+        <!-- 登录页 -->
+        <div
+          id="login"
+          class="relative w-[360px] h-[720px] overflow-hidden rounded-[28px] border border-white/10 bg-surface/90 shadow-[0_28px_80px_rgba(14,10,32,0.65)] backdrop-blur"
+        >
+          <div
+            class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,152,102,0.45),transparent_55%)]"
+          ></div>
+          <div
+            class="absolute inset-x-0 top-[-120px] h-64 bg-[radial-gradient(circle,#FF6B6B33,transparent_60%)]"
+          ></div>
+          <div class="relative flex h-full flex-col px-8 py-10">
+            <div
+              class="flex items-center justify-between text-xs text-white/55"
+            >
+              <span
+                class="rounded-full border border-white/10 bg-white/5 px-3 py-1 tracking-[0.4em]"
+                >邀请码登录</span
+              >
+            </div>
+
+            <div class="mt-14 flex flex-col items-center text-center">
+              <div class="mt-8 flex flex-col items-center gap-4">
+                <span
+                  class="relative flex h-16 w-16 items-center justify-center rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top,#ffffff33,transparent_70%)] text-3xl text-primary-light shadow-[0_15px_35px_rgba(255,107,107,0.25)]"
+                >
+                  <span class="material-icons text-[30px]"
+                    >restaurant_menu</span
+                  >
+                </span>
+
+                <div class="mb-10 flex items-center gap-3">
+                  <div>
+                    <p class="text-lg font-semibold text-white">我家吃什么</p>
+                    <p
+                      class="text-xs uppercase tracking-[0.45em] text-white/40"
+                    >
+                      Family Meal App
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-10 flex flex-1 flex-col">
+              <div class="space-y-6">
+                <div class="space-y-3">
+                  <div
+                    class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 px-1.5 py-1.5 backdrop-blur-sm transition hover:border-primary/40 hover:bg-white/10"
+                  >
+                    <div
+                      class="relative rounded-[22px] bg-surface-soft/70 px-4"
+                    >
+                      <input
+                        type="text"
+                        placeholder="请输入邀请码"
+                        class="w-full bg-transparent py-3 pr-10 text-base text-white placeholder:text-white/35 focus:outline-none"
+                      />
+                      <span
+                        class="material-icons absolute right-0 top-1/2 -translate-y-1/2 text-white/35"
+                        >qr_code</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  class="w-full rounded-3xl bg-gradient-to-r from-primary via-rose-500 to-orange-500 py-3.5 text-sm font-semibold uppercase tracking-[0.6em] text-white shadow-glow transition hover:from-primary-dark hover:via-rose-500 hover:to-orange-600"
+                >
+                  进入厨房
+                </button>
+              </div>
+
+              <div class="mt-10 pt-12 text-center text-xs text-white/50">
+                <p>
+                  没有邀请码？<a
+                    href="#recommend"
+                    class="ml-1 text-primary-light transition hover:text-white"
+                    >先找丁鑫去要一个叭</a
+                  >
+                </p>
+                <p class="mt-3 text-white/35">
+                  支持家庭共享和同步，登录开启你的每日灵感厨房。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 推荐页 -->
+        <div
+          id="recommend"
+          class="relative w-[360px] h-[720px] overflow-hidden rounded-[28px] border border-white/10 bg-surface/90 shadow-[0_28px_80px_rgba(14,10,32,0.65)] backdrop-blur"
+        >
+          <div
+            class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,107,107,0.35),transparent_55%)]"
+          ></div>
+          <div class="relative flex h-full flex-col px-6 pb-28 pt-6">
+            <header class="mb-4 flex items-center justify-between">
+              <div>
+                <p class="text-xs uppercase tracking-[0.45em] text-white/40">
+                  欢迎回来
+                </p>
+                <h2 class="mt-1 text-xl font-semibold">今日推荐</h2>
+              </div>
+            </header>
+
+            <div class="soft-scroll flex-1 space-y-5 overflow-y-auto pr-1">
+              <div
+                class="relative overflow-hidden rounded-3xl border border-white/5 bg-surface-soft/90 p-5"
+              >
+                <div
+                  class="absolute -right-24 -top-24 h-48 w-48 rounded-full bg-gradient-to-br from-primary/40 to-orange-500/20 blur-3xl"
+                ></div>
+                <div class="relative">
+                  <div class="mb-4 overflow-hidden rounded-2xl">
+                    <img
+                      src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=720&q=80"
+                      alt="春日轻盈套餐"
+                      class="h-40 w-full object-cover"
+                    />
+                  </div>
+                  <div class="flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <div>
+                        <h3 class="text-lg font-semibold">春日轻盈套餐</h3>
+                      </div>
+                    </div>
+                    <span
+                      class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 whitespace-nowrap"
+                    >
+                      3-4 人</span
+                    >
+                  </div>
+
+                  <div class="mt-4 space-y-3">
+                    <a
+                      href="#dish-detail"
+                      class="flex items-center justify-between gap-3 rounded-2xl border border-white/5 bg-white/5 px-4 py-3 transition hover:border-primary/50 hover:bg-primary/10"
+                    >
+                      <div class="space-y-1">
+                        <p class="text-sm font-semibold">清蒸鲈鱼</p>
+                        <p class="text-xs text-white/55">
+                          低脂高蛋白，保留原汁原味
+                        </p>
+                      </div>
+                      <span
+                        class="text-xs font-semibold text-accent-green whitespace-nowrap"
+                        >主菜</span
+                      >
+                    </a>
+                    <a
+                      href="#dish-detail"
+                      class="flex items-center justify-between gap-3 rounded-2xl border border-white/5 bg-white/5 px-4 py-3 transition hover:border-primary/50 hover:bg-primary/10"
+                    >
+                      <div class="space-y-1">
+                        <p class="text-sm font-semibold">香菇滑鸡</p>
+                        <p class="text-xs text-white/55">
+                          富含维生素 D，提升免疫力
+                        </p>
+                      </div>
+                      <span
+                        class="text-xs font-semibold text-accent-yellow whitespace-nowrap"
+                        >配菜</span
+                      >
+                    </a>
+                    <a
+                      href="#dish-detail"
+                      class="flex items-center justify-between gap-3 rounded-2xl border border-white/5 bg-white/5 px-4 py-3 transition hover:border-primary/50 hover:bg-primary/10"
+                    >
+                      <div class="space-y-1">
+                        <p class="text-sm font-semibold">丝瓜虾仁汤</p>
+                        <p class="text-xs text-white/55">
+                          补水润燥，适合换季时节
+                        </p>
+                      </div>
+                      <span
+                        class="text-xs font-semibold text-accent-blue whitespace-nowrap"
+                        >汤品</span
+                      >
+                    </a>
+                    <a
+                      href="#dish-detail"
+                      class="flex items-center justify-between gap-3 rounded-2xl border border-white/5 bg-white/5 px-4 py-3 transition hover:border-primary/50 hover:bg-primary/10"
+                    >
+                      <div class="space-y-1">
+                        <p class="text-sm font-semibold">燕麦紫薯饭</p>
+                        <p class="text-xs text-white/55">
+                          复合碳水，稳定能量来源
+                        </p>
+                      </div>
+                      <span
+                        class="text-xs font-semibold text-accent-blue whitespace-nowrap"
+                        >主食</span
+                      >
+                    </a>
+                  </div>
+
+                  <div class="mt-5 grid grid-cols-2 gap-3 text-sm">
+                    <div
+                      class="flex items-center gap-2 rounded-2xl border border-white/5 bg-white/5 px-4 py-3"
+                    >
+                      <span class="material-icons text-primary-light"
+                        >health_and_safety</span
+                      >
+                      均衡营养 85 分
+                    </div>
+                    <div
+                      class="flex items-center gap-2 rounded-2xl border border-white/5 bg-white/5 px-4 py-3"
+                    >
+                      <span class="material-icons text-accent-yellow"
+                        >schedule</span
+                      >
+                      45 分钟上桌
+                    </div>
+                    <div
+                      class="flex items-center gap-2 rounded-2xl border border-white/5 bg-white/5 px-4 py-3"
+                    >
+                      <span class="material-icons text-accent-green"
+                        >family_restroom</span
+                      >
+                      适合家庭共享
+                    </div>
+                    <div
+                      class="flex items-center gap-2 rounded-2xl border border-white/5 bg-white/5 px-4 py-3"
+                    >
+                      <span class="material-icons text-accent-blue">grain</span>
+                      荤素配比 1:2
+                    </div>
+                  </div>
+
+                  <button
+                    class="mt-5 w-full rounded-2xl bg-gradient-to-r from-primary to-orange-500 py-3 text-sm font-semibold uppercase tracking-[0.35em] text-white shadow-glow transition hover:from-primary-dark hover:to-orange-600 whitespace-nowrap"
+                  >
+                    生成菜谱
+                  </button>
+                </div>
+              </div>
+
+              <div
+                class="space-y-3 rounded-3xl border border-white/10 bg-surface-soft/90 p-5"
+              >
+                <div class="flex items-center justify-between">
+                  <h3 class="text-base font-semibold">推荐理由</h3>
+                  <span
+                    class="rounded-full bg-white/5 px-3 py-1 text-xs text-white/60 whitespace-nowrap"
+                    >本周口碑 TOP</span
+                  >
+                </div>
+                <p class="text-sm leading-relaxed text-white/70">
+                  近期气温回升，易出现口干乏力。此套餐强调清爽、低油、营养均衡，适合需要提升免疫力的家庭人群。特别为小朋友提供低盐配方，同时满足父母对蛋白质与膳食纤维的需求。
+                </p>
+                <div class="flex gap-2">
+                  <span
+                    class="rounded-full bg-primary/15 px-3 py-1 text-xs text-primary-light whitespace-nowrap"
+                    >季节限定</span
+                  >
+                  <span
+                    class="rounded-full bg-accent-green/15 px-3 py-1 text-xs text-accent-green whitespace-nowrap"
+                    >营养推荐</span
+                  >
+                  <span
+                    class="rounded-full bg-accent-blue/15 px-3 py-1 text-xs text-accent-blue whitespace-nowrap"
+                    >低脂轻盈</span
+                  >
+                </div>
+              </div>
+
+              <div
+                class="rounded-3xl border border-white/10 bg-surface-soft/90 p-5"
+              >
+                <div class="flex items-center justify-between">
+                  <h3 class="text-base font-semibold">营养概览</h3>
+                </div>
+                <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                  <div class="rounded-2xl bg-white/5 px-4 py-3">
+                    <p class="text-xs text-white/50">热量</p>
+                    <p class="mt-1 text-lg font-semibold">1850 kcal</p>
+                    <p class="text-xs text-white/40">符合三口之家全天摄入</p>
+                  </div>
+                  <div class="rounded-2xl bg-white/5 px-4 py-3">
+                    <p class="text-xs text-white/50">蛋白质</p>
+                    <p class="mt-1 text-lg font-semibold">108 g</p>
+                    <p class="text-xs text-white/40">优质蛋白 65%</p>
+                  </div>
+                  <div class="rounded-2xl bg-white/5 px-4 py-3">
+                    <p class="text-xs text-white/50">膳食纤维</p>
+                    <p class="mt-1 text-lg font-semibold">32 g</p>
+                    <p class="text-xs text-white/40">达标 120%</p>
+                  </div>
+                  <div class="rounded-2xl bg-white/5 px-4 py-3">
+                    <p class="text-xs text-white/50">钠含量</p>
+                    <p class="mt-1 text-lg font-semibold">5.1 g</p>
+                    <p class="text-xs text-white/40">低盐轻负担</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <nav
+              class="absolute inset-x-0 bottom-0 flex h-20 items-center justify-around border-t border-white/10 bg-surface/95 backdrop-blur"
+            >
+              <a
+                href="#recommend"
+                class="flex flex-col items-center gap-1 text-xs font-semibold text-primary"
+              >
+                <span class="material-icons">auto_awesome</span>
+                <span class="whitespace-nowrap">推荐</span>
+              </a>
+              <a
+                href="#order"
+                class="flex flex-col items-center gap-1 text-xs text-white/60 transition hover:text-white"
+              >
+                <span class="material-icons">restaurant_menu</span>
+                <span class="whitespace-nowrap">点餐</span>
+              </a>
+              <a
+                href="#random"
+                class="flex flex-col items-center gap-1 text-xs text-white/60 transition hover:text-white"
+              >
+                <span class="material-icons">casino</span>
+                <span class="whitespace-nowrap">随机</span>
+              </a>
+              <a
+                href="#menu"
+                class="flex flex-col items-center gap-1 text-xs text-white/60 transition hover:text-white"
+              >
+                <span class="material-icons">assignment</span>
+                <span class="whitespace-nowrap">菜单</span>
+              </a>
+            </nav>
+          </div>
+        </div>
+
+        <!-- 点餐页 -->
+        <div
+          id="order"
+          class="relative w-[360px] h-[720px] overflow-hidden rounded-[28px] border border-white/10 bg-surface/90 shadow-[0_28px_80px_rgba(14,10,32,0.65)] backdrop-blur"
+        >
+          <div
+            class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(56,189,248,0.3),transparent_55%)]"
+          ></div>
+          <div class="relative flex h-full flex-col px-6 pb-28 pt-6">
+            <header class="mb-4 flex items-center justify-between">
+              <div>
+                <p class="text-xs uppercase tracking-[0.45em] text-white/40">
+                  吃点什么
+                </p>
+                <h2 class="mt-1 text-xl font-semibold">点餐系统</h2>
+              </div>
+            </header>
+
+            <div class="soft-scroll flex-1 space-y-4 overflow-y-auto pr-1">
+              <div
+                class="flex items-center gap-3 rounded-3xl border border-white/10 bg-white/5 px-4 py-3"
+              >
+                <span class="material-icons text-white/40">search</span>
+                <input
+                  type="text"
+                  placeholder="搜索菜品或食材，如“鸡胸肉”"
+                  class="w-full bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
+                />
+                <span class="material-icons text-white/30">mic_none</span>
+              </div>
+
+              <div class="soft-scroll flex gap-2 overflow-x-auto pb-1">
+                <button
+                  class="rounded-full border border-primary/60 bg-primary/20 px-4 py-2 text-xs font-semibold text-primary-light shadow-[0_0_0_rgba(0,0,0,0)]"
+                >
+                  全部
+                </button>
+                <button
+                  class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70"
+                >
+                  肉类
+                </button>
+                <button
+                  class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70"
+                >
+                  素食
+                </button>
+                <button
+                  class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70"
+                >
+                  海鲜
+                </button>
+                <button
+                  class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70"
+                >
+                  汤品
+                </button>
+                <button
+                  class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70"
+                >
+                  主食
+                </button>
+                <button
+                  class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70"
+                >
+                  甜品
+                </button>
+              </div>
+
+              <div class="grid grid-cols-1 gap-4">
+                <div
+                  class="flex gap-4 rounded-3xl border border-white/10 bg-surface-soft/95 p-4"
+                >
+                  <div
+                    class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-2xl"
+                  >
+                    <img
+                      src="https://images.pexels.com/photos/2280545/pexels-photo-2280545.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                      alt="蜜汁烤鸡腿"
+                      class="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div class="flex flex-1 flex-col justify-between">
+                    <div class="space-y-2">
+                      <a
+                        href="#dish-detail"
+                        class="flex items-center justify-between text-sm font-semibold text-white transition hover:text-primary-light"
+                      >
+                        蜜汁烤鸡腿
+                        <span
+                          class="rounded-full bg-primary/15 px-3 py-1 text-xs font-medium text-primary-light whitespace-nowrap"
+                          >热销</span
+                        >
+                      </a>
+                      <p class="text-xs leading-relaxed text-white/60">
+                        低脂去皮鸡腿，搭配自制果蜜腌料，烤制香嫩多汁。
+                      </p>
+                    </div>
+                    <div class="flex items-center justify-end text-sm">
+                      <button
+                        class="flex items-center gap-1 rounded-full bg-primary/20 px-3 py-1 text-xs font-semibold text-primary-light whitespace-nowrap transition hover:bg-primary/30"
+                      >
+                        <span class="material-icons text-sm">add</span>
+                        加入菜单
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="flex gap-4 rounded-3xl border border-white/10 bg-surface-soft/95 p-4"
+                >
+                  <div
+                    class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-2xl"
+                  >
+                    <img
+                      src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=720&q=80"
+                      alt="麻婆豆腐"
+                      class="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div class="flex flex-1 flex-col justify-between">
+                    <div class="space-y-2">
+                      <a
+                        href="#dish-detail"
+                        class="flex items-center justify-between text-sm font-semibold text-white transition hover:text-primary-light"
+                      >
+                        家常麻婆豆腐
+                        <span
+                          class="rounded-full bg-accent-yellow/15 px-3 py-1 text-xs font-medium text-accent-yellow whitespace-nowrap"
+                          >低脂</span
+                        >
+                      </a>
+                      <p class="text-xs leading-relaxed text-white/60">
+                        使用牛肉末搭配川味豆瓣，微辣开胃，适合拌饭。
+                      </p>
+                    </div>
+                    <div class="flex items-center justify-end text-sm">
+                      <button
+                        class="flex items-center gap-1 rounded-full bg-primary/20 px-3 py-1 text-xs font-semibold text-primary-light whitespace-nowrap transition hover:bg-primary/30"
+                      >
+                        <span class="material-icons text-sm">add</span>
+                        加入菜单
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="flex gap-4 rounded-3xl border border-white/10 bg-surface-soft/95 p-4"
+                >
+                  <div
+                    class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-2xl"
+                  >
+                    <img
+                      src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=240&q=80"
+                      alt="鲜虾冬瓜汤"
+                      class="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div class="flex flex-1 flex-col justify-between">
+                    <div class="space-y-2">
+                      <a
+                        href="#dish-detail"
+                        class="flex items-center justify-between text-sm font-semibold text-white transition hover:text-primary-light"
+                      >
+                        鲜虾冬瓜汤
+                        <span
+                          class="rounded-full bg-accent-blue/15 px-3 py-1 text-xs font-medium text-accent-blue whitespace-nowrap"
+                          >汤品</span
+                        >
+                      </a>
+                      <p class="text-xs leading-relaxed text-white/60">
+                        低脂清爽，补水润燥，适合换季饮食。
+                      </p>
+                    </div>
+                    <div class="flex items-center justify-end text-sm">
+                      <button
+                        class="flex items-center gap-1 rounded-full bg-primary/20 px-3 py-1 text-xs font-semibold text-primary-light whitespace-nowrap transition hover:bg-primary/30"
+                      >
+                        <span class="material-icons text-sm">add</span>
+                        加入菜单
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <nav
+              class="absolute inset-x-0 bottom-0 flex h-20 items-center justify-around border-t border-white/10 bg-surface/95 backdrop-blur"
+            >
+              <a
+                href="#recommend"
+                class="flex flex-col items-center gap-1 text-xs text-white/60 transition hover:text-white"
+              >
+                <span class="material-icons">auto_awesome</span>
+                <span class="whitespace-nowrap">推荐</span>
+              </a>
+              <a
+                href="#order"
+                class="flex flex-col items-center gap-1 text-xs font-semibold text-primary"
+              >
+                <span class="material-icons">restaurant_menu</span>
+                <span class="whitespace-nowrap">点餐</span>
+              </a>
+              <a
+                href="#random"
+                class="flex flex-col items-center gap-1 text-xs text-white/60 transition hover:text-white"
+              >
+                <span class="material-icons">casino</span>
+                <span class="whitespace-nowrap">随机</span>
+              </a>
+              <a
+                href="#menu"
+                class="flex flex-col items-center gap-1 text-xs text-white/60 transition hover:text-white"
+              >
+                <span class="material-icons">assignment</span>
+                <span class="whitespace-nowrap">菜单</span>
+              </a>
+            </nav>
+          </div>
+        </div>
+
+        <!-- 随机页 -->
+        <div
+          id="random"
+          class="relative w-[360px] h-[720px] overflow-hidden rounded-[28px] border border-white/10 bg-surface/90 shadow-[0_28px_80px_rgba(14,10,32,0.65)] backdrop-blur"
+        >
+          <div
+            class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(76,201,240,0.32),transparent_55%)]"
+          ></div>
+          <div class="relative flex h-full flex-col px-6 pb-28 pt-6">
+            <header class="mb-4 flex items-center justify-between">
+              <div>
+                <p class="text-xs uppercase tracking-[0.45em] text-white/40">
+                  选择困难
+                </p>
+                <h2 class="mt-1 text-xl font-semibold">随机推荐</h2>
+              </div>
+              <button
+                class="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white/70"
+              >
+                <span class="material-icons">favorite_border</span>
+              </button>
+            </header>
+
+            <div class="soft-scroll flex-1 space-y-5 overflow-y-auto pr-1">
+              <div class="soft-scroll flex gap-2 overflow-x-auto pb-1">
+                <button
+                  class="rounded-full border border-primary/60 bg-primary/20 px-4 py-2 text-xs font-semibold text-primary-light"
+                >
+                  全部
+                </button>
+                <button
+                  class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70"
+                >
+                  肉类
+                </button>
+                <button
+                  class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70"
+                >
+                  素食
+                </button>
+                <button
+                  class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70"
+                >
+                  海鲜
+                </button>
+                <button
+                  class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70"
+                >
+                  汤品
+                </button>
+                <button
+                  class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70"
+                >
+                  主食
+                </button>
+              </div>
+
+              <div
+                class="relative overflow-hidden rounded-3xl border border-white/10 bg-surface-soft/95"
+              >
+                <div
+                  class="absolute -left-28 -top-20 h-40 w-40 rounded-full bg-gradient-to-br from-accent-blue/40 to-primary/20 blur-3xl"
+                ></div>
+                <img
+                  src="https://images.unsplash.com/photo-1498654896293-37aacf113fd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=720&q=80"
+                  alt="随机菜品"
+                  class="h-48 w-full object-cover"
+                />
+                <div class="relative space-y-4 p-5">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <a
+                        href="#dish-detail"
+                        class="text-lg font-semibold transition hover:text-primary-light"
+                        >柠檬香煎三文鱼</a
+                      >
+                      <p class="mt-1 text-xs text-white/60">
+                        Omega-3 丰富，适合关注心血管健康的家庭
+                      </p>
+                    </div>
+                    <span
+                      class="rounded-full bg-white/5 px-3 py-1 text-xs text-white/70 whitespace-nowrap"
+                      >海鲜</span
+                    >
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-3 text-sm">
+                    <div class="rounded-2xl bg-white/5 px-4 py-3">
+                      <p class="text-xs text-white/50">准备时间</p>
+                      <p class="mt-1 text-lg font-semibold">18 分钟</p>
+                    </div>
+                    <div class="rounded-2xl bg-white/5 px-4 py-3">
+                      <p class="text-xs text-white/50">难度</p>
+                      <p class="mt-1 text-lg font-semibold">初级</p>
+                    </div>
+                    <div class="rounded-2xl bg-white/5 px-4 py-3">
+                      <p class="text-xs text-white/50">热量</p>
+                      <p class="mt-1 text-lg font-semibold">310 kcal</p>
+                    </div>
+                    <div class="rounded-2xl bg-white/5 px-4 py-3">
+                      <p class="text-xs text-white/50">家庭评分</p>
+                      <p class="mt-1 text-lg font-semibold text-accent-green">
+                        4.8
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="flex gap-3">
+                    <button
+                      class="flex-1 rounded-2xl border border-white/10 bg-white/5 py-3 text-sm font-semibold text-white/80 whitespace-nowrap transition hover:border-white/30 hover:bg-white/10"
+                    >
+                      <span class="material-icons mr-1 align-middle text-sm"
+                        >auto_fix_high</span
+                      >
+                      换一个
+                    </button>
+                    <button
+                      class="flex-1 rounded-2xl bg-gradient-to-r from-primary to-orange-500 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-white shadow-glow transition hover:from-primary-dark hover:to-orange-600 whitespace-nowrap"
+                    >
+                      加入菜单
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <nav
+              class="absolute inset-x-0 bottom-0 flex h-20 items-center justify-around border-t border-white/10 bg-surface/95 backdrop-blur"
+            >
+              <a
+                href="#recommend"
+                class="flex flex-col items-center gap-1 text-xs text-white/60 transition hover:text-white"
+              >
+                <span class="material-icons">auto_awesome</span>
+                <span class="whitespace-nowrap">推荐</span>
+              </a>
+              <a
+                href="#order"
+                class="flex flex-col items-center gap-1 text-xs text-white/60 transition hover:text-white"
+              >
+                <span class="material-icons">restaurant_menu</span>
+                <span class="whitespace-nowrap">点餐</span>
+              </a>
+              <a
+                href="#random"
+                class="flex flex-col items-center gap-1 text-xs font-semibold text-primary"
+              >
+                <span class="material-icons">casino</span>
+                <span class="whitespace-nowrap">随机</span>
+              </a>
+              <a
+                href="#menu"
+                class="flex flex-col items-center gap-1 text-xs text-white/60 transition hover:text-white"
+              >
+                <span class="material-icons">assignment</span>
+                <span class="whitespace-nowrap">菜单</span>
+              </a>
+            </nav>
+          </div>
+        </div>
+
+        <!-- 菜单页 -->
+        <div
+          id="menu"
+          class="relative w-[360px] h-[720px] overflow-hidden rounded-[28px] border border-white/10 bg-surface/90 shadow-[0_28px_80px_rgba(14,10,32,0.65)] backdrop-blur"
+        >
+          <div
+            class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(52,211,153,0.28),transparent_55%)]"
+          ></div>
+          <div class="relative flex h-full flex-col px-6 pb-28 pt-6">
+            <header class="mb-4 flex items-center justify-between">
+              <div>
+                <p class="text-xs uppercase tracking-[0.45em] text-white/40">
+                  今天吃什么
+                </p>
+                <h2 class="mt-1 text-xl font-semibold">今日菜单</h2>
+              </div>
+            </header>
+
+            <div class="soft-scroll flex-1 space-y-4 overflow-y-auto pr-1">
+              <div
+                class="flex items-center justify-between rounded-3xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70"
+              >
+                <div>
+                  <p class="text-xs uppercase tracking-[0.35em] text-white/45">
+                    菜单概览
+                  </p>
+                  <p class="mt-1 text-sm text-white">
+                    3 道主菜 · 2 道配菜 · 1 汤品
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="space-y-4 rounded-3xl border border-white/10 bg-surface-soft/95 p-4"
+              >
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="h-14 w-14 overflow-hidden rounded-2xl border border-white/10"
+                    >
+                      <img
+                        src="https://images.pexels.com/photos/3298638/pexels-photo-3298638.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                        alt="清蒸鲈鱼"
+                        class="h-full w-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <a
+                        href="#dish-detail"
+                        class="text-sm font-semibold text-white transition hover:text-primary-light"
+                        >清蒸鲈鱼</a
+                      >
+                      <p class="text-xs text-white/50">主菜 · 40 分钟</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white"
+                    >
+                      <button class="material-icons text-sm text-white/60">
+                        remove
+                      </button>
+                      <span>1</span>
+                      <button class="material-icons text-sm text-white/60">
+                        add
+                      </button>
+                    </div>
+                    <button
+                      class="material-icons rounded-full border border-white/10 bg-white/5 text-sm text-white/50"
+                    >
+                      delete
+                    </button>
+                  </div>
+                </div>
+                <div class="text-xs text-white/55">
+                  <span class="rounded-full bg-white/5 px-2 py-1">快手</span>
+                  <span class="rounded-full bg-white/5 px-2 py-1">低脂</span>
+                </div>
+              </div>
+
+              <div
+                class="space-y-4 rounded-3xl border border-white/10 bg-surface-soft/95 p-4"
+              >
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="h-14 w-14 overflow-hidden rounded-2xl border border-white/10"
+                    >
+                      <img
+                        src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-4.0.3&auto=format&fit=crop&w=240&q=80"
+                        alt="焯拌西兰花"
+                        class="h-full w-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <a
+                        href="#dish-detail"
+                        class="text-sm font-semibold text-white transition hover:text-primary-light"
+                        >焯拌西兰花</a
+                      >
+                      <p class="text-xs text-white/50">配菜 · 10 分钟</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white"
+                    >
+                      <button class="material-icons text-sm text-white/60">
+                        remove
+                      </button>
+                      <span>2</span>
+                      <button class="material-icons text-sm text-white/60">
+                        add
+                      </button>
+                    </div>
+                    <button
+                      class="material-icons rounded-full border border-white/10 bg-white/5 text-sm text-white/50"
+                    >
+                      delete
+                    </button>
+                  </div>
+                </div>
+                <div class="flex gap-2 text-xs text-white/45">
+                  <span class="rounded-full bg-white/5 px-2 py-1">低脂</span>
+                  <span class="rounded-full bg-white/5 px-2 py-1">补维 C</span>
+                  <span class="rounded-full bg-white/5 px-2 py-1"
+                    >孩子偏好</span
+                  >
+                </div>
+              </div>
+
+              <div
+                class="space-y-4 rounded-3xl border border-white/10 bg-surface-soft/95 p-4"
+              >
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="h-14 w-14 overflow-hidden rounded-2xl border border-white/10"
+                    >
+                      <img
+                        src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                        alt="燕麦紫薯饭"
+                        class="h-full w-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <a
+                        href="#dish-detail"
+                        class="text-sm font-semibold text-white transition hover:text-primary-light"
+                        >燕麦紫薯饭</a
+                      >
+                      <p class="text-xs text-white/50">主食 · 25 分钟</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white"
+                    >
+                      <button class="material-icons text-sm text-white/60">
+                        remove
+                      </button>
+                      <span>1</span>
+                      <button class="material-icons text-sm text-white/60">
+                        add
+                      </button>
+                    </div>
+                    <button
+                      class="material-icons rounded-full border border-white/10 bg-white/5 text-sm text-white/50"
+                    >
+                      delete
+                    </button>
+                  </div>
+                </div>
+                <div class="text-xs text-white/55">
+                  <span class="rounded-full bg-white/5 px-2 py-1">减脂</span>
+                  <span class="rounded-full bg-white/5 px-2 py-1">高纤维</span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="mt-4 space-y-3 rounded-3xl border border-white/10 bg-surface-soft/95 p-4 text-sm"
+            >
+              <div class="flex items-center justify-between text-white/70">
+                <span>预计总时长</span>
+                <span class="text-white font-semibold">60 分钟</span>
+              </div>
+              <div class="flex items-center justify-between text-white/70">
+                <span>家庭热量目标 2000 kcal</span>
+                <span class="text-accent-green font-semibold">已达成 92%</span>
+              </div>
+              <div class="flex gap-3 pt-2">
+                <button
+                  class="flex-1 rounded-2xl border border-white/10 bg-white/5 py-3 text-xs font-semibold text-white/70 transition hover:border-white/30 hover:text-white"
+                >
+                  清空菜单
+                </button>
+                <button
+                  class="flex-1 rounded-2xl bg-gradient-to-r from-primary to-orange-500 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-white shadow-glow transition hover:from-primary-dark hover:to-orange-600 whitespace-nowrap"
+                >
+                  生成菜谱
+                </button>
+              </div>
+            </div>
+
+            <nav
+              class="absolute inset-x-0 bottom-0 flex h-20 items-center justify-around border-t border-white/10 bg-surface/95 backdrop-blur"
+            >
+              <a
+                href="#recommend"
+                class="flex flex-col items-center gap-1 text-xs text-white/60 transition hover:text-white"
+              >
+                <span class="material-icons">auto_awesome</span>
+                <span class="whitespace-nowrap">推荐</span>
+              </a>
+              <a
+                href="#order"
+                class="flex flex-col items-center gap-1 text-xs text-white/60 transition hover:text-white"
+              >
+                <span class="material-icons">restaurant_menu</span>
+                <span class="whitespace-nowrap">点餐</span>
+              </a>
+              <a
+                href="#random"
+                class="flex flex-col items-center gap-1 text-xs text-white/60 transition hover:text-white"
+              >
+                <span class="material-icons">casino</span>
+                <span class="whitespace-nowrap">随机</span>
+              </a>
+              <a
+                href="#menu"
+                class="flex flex-col items-center gap-1 text-xs font-semibold text-primary"
+              >
+                <span class="material-icons">assignment</span>
+                <span class="whitespace-nowrap">菜单</span>
+              </a>
+            </nav>
+          </div>
+        </div>
+
+        <!-- 菜品详情页 -->
+        <div
+          id="dish-detail"
+          class="relative w-[360px] h-[720px] overflow-hidden rounded-[28px] border border-white/10 bg-surface/90 shadow-[0_28px_80px_rgba(14,10,32,0.65)] backdrop-blur"
+        >
+          <div
+            class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,160,122,0.32),transparent_55%)]"
+          ></div>
+          <div class="relative flex h-full flex-col">
+            <div class="relative h-52 overflow-hidden">
+              <img
+                src="https://images.pexels.com/photos/3298638/pexels-photo-3298638.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                alt="清蒸鲈鱼"
+                class="h-full w-full scale-110 object-cover filter"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-surface via-surface/30 to-transparent"
+              ></div>
+              <div
+                class="absolute inset-x-4 top-6 flex items-center justify-between"
+              >
+                <a
+                  href="#order"
+                  class="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/10 text-white"
+                >
+                  <span class="material-icons">arrow_back</span>
+                </a>
+                <button
+                  class="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/10 text-white"
+                >
+                  <span class="material-icons">favorite_border</span>
+                </button>
+              </div>
+              <div class="absolute bottom-4 left-0 right-0 px-6">
+                <span
+                  class="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs text-white/80 whitespace-nowrap"
+                  >主菜 · 经典家常</span
+                >
+                <h2 class="mt-3 text-2xl font-semibold">清蒸鲈鱼</h2>
+                <p class="text-xs text-white/70">
+                  保持原汁原味的经典蒸法，适合家庭老少共享
+                </p>
+              </div>
+            </div>
+
+            <div class="soft-scroll flex-1 space-y-4 overflow-y-auto px-6 py-6">
+              <div class="grid grid-cols-2 gap-3 text-sm">
+                <div
+                  class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3"
+                >
+                  <p class="text-xs text-white/50">准备时间</p>
+                  <p class="mt-1 text-lg font-semibold">45 分钟</p>
+                </div>
+                <div
+                  class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3"
+                >
+                  <p class="text-xs text-white/50">难度</p>
+                  <p class="mt-1 text-lg font-semibold">中级</p>
+                </div>
+                <div
+                  class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3"
+                >
+                  <p class="text-xs text-white/50">热量</p>
+                  <p class="mt-1 text-lg font-semibold">320 kcal</p>
+                </div>
+                <div
+                  class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3"
+                >
+                  <p class="text-xs text-white/50">家庭评分</p>
+                  <p class="mt-1 text-lg font-semibold text-accent-green">
+                    4.9
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="rounded-3xl border border-white/10 bg-surface-soft/95 p-4"
+              >
+                <h3 class="text-base font-semibold">食材准备</h3>
+                <ul class="mt-3 space-y-2 text-sm text-white/70">
+                  <li class="flex items-center justify-between">
+                    <span>新鲜鲈鱼</span
+                    ><span class="text-white/50">1 条 (~800g)</span>
+                  </li>
+                  <li class="flex items-center justify-between">
+                    <span>姜丝</span><span class="text-white/50">20 g</span>
+                  </li>
+                  <li class="flex items-center justify-between">
+                    <span>葱段</span><span class="text-white/50">3 根</span>
+                  </li>
+                  <li class="flex items-center justify-between">
+                    <span>蒸鱼豉油</span
+                    ><span class="text-white/50">20 ml</span>
+                  </li>
+                  <li class="flex items-center justify-between">
+                    <span>香菜</span><span class="text-white/50">适量</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div
+                class="rounded-3xl border border-white/10 bg-surface-soft/95 p-4"
+              >
+                <h3 class="text-base font-semibold">制作步骤</h3>
+                <ol class="mt-3 space-y-3 text-sm text-white/70">
+                  <li>
+                    <span
+                      class="mr-2 rounded-full bg-primary/20 px-2 py-1 text-xs font-semibold text-primary-light"
+                      >1</span
+                    >
+                    清洗鲈鱼，打花刀，抹少许盐和料酒腌 10 分钟。
+                  </li>
+                  <li>
+                    <span
+                      class="mr-2 rounded-full bg-primary/20 px-2 py-1 text-xs font-semibold text-primary-light"
+                      >2</span
+                    >
+                    盘底铺姜丝、葱段，放入鱼身，水开后大火蒸 8-10 分钟。
+                  </li>
+                  <li>
+                    <span
+                      class="mr-2 rounded-full bg-primary/20 px-2 py-1 text-xs font-semibold text-primary-light"
+                      >3</span
+                    >
+                    蒸好取出倒掉蒸出的汤汁，铺上葱丝、香菜。
+                  </li>
+                  <li>
+                    <span
+                      class="mr-2 rounded-full bg-primary/20 px-2 py-1 text-xs font-semibold text-primary-light"
+                      >4</span
+                    >
+                    热锅加少许油浇在葱丝上，再淋入蒸鱼豉油即可。
+                  </li>
+                </ol>
+              </div>
+
+              <div
+                class="rounded-3xl border border-white/10 bg-surface-soft/95 p-4 text-sm text-white/70"
+              >
+                <h3 class="mb-3 text-base font-semibold text-white">
+                  营养建议
+                </h3>
+                <p>
+                  配搭一份富含膳食纤维的蔬菜与粗粮主食，可进一步平衡膳食结构。老人和孩子可适当减少酱油用量。
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="border-t border-white/10 bg-surface/95 p-6 backdrop-blur"
+            >
+              <div class="flex gap-3">
+                <button
+                  class="flex-1 rounded-2xl border border-white/10 bg-white/5 py-3 text-sm font-semibold text-white/70 whitespace-nowrap transition hover:border-white/30 hover:text-white"
+                >
+                  <span class="material-icons mr-1 align-middle text-sm"
+                    >share</span
+                  >
+                  分享
+                </button>
+                <button
+                  class="flex-1 rounded-2xl bg-gradient-to-r from-primary to-orange-500 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-white shadow-glow transition hover:from-primary-dark hover:to-orange-600 whitespace-nowrap"
+                >
+                  加入菜谱
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
